@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="game">
                     <img src="image/game-template.jpg" alt="game-template">
-                    <h3>ゲームタイトル1</h3>
+                    <h3>刹那の見切り</h3>
                 </div>
                 <div class="game">
                     <img src="image/game-template.jpg" alt="game-template">
@@ -54,28 +54,88 @@
 
         <section id="team">
             <h2>チーム紹介</h2>
-            <div class="member">
-                <h3>髙橋荘悟</h3>
-                <p>役割: プログラマー</p>
-            </div>
-            <div class="member">
-                <h3>池本理柚</h3>
-                <p>役割: プログラマー</p>
+            <div class="members-container">
+                <div class="member">
+                    <div class="member-info">
+                        <h3>髙橋荘悟</h3>
+                        <p class="role">役割: ゲーム・Webプログラマー</p>
+                        <p class="comment">「一言コメント：個人開発楽しいっぴ」</p>
+                    </div>
+                    <div class="member-image">
+                        <img src="image/profile/kapi_profile.jpg" alt="髙橋荘悟">
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-info">
+                        <h3>池本理柚</h3>
+                        <p class="role">役割: ゲームプログラマー</p>
+                        <p class="comment">「一言コメント：ちからをためている」</p>
+                    </div>
+                    <div class="member-image">
+                        <img src="image/profile/ikemoto_profile.jpg" alt="池本理柚">
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="blog">
             <h2>開発ブログ</h2>
-            <p>開発の進捗や技術的な話題を掲載。</p>
+            <div class="blog-container">
+                <article class="blog-post">
+                    <div class="blog-date">2025年4月20日</div>
+                    <h3>刹那の見切り - 開発進捗報告</h3>
+                    <div class="blog-image">
+                        <img src="image/blog/blog-image1.jpg" alt="開発中の画面">
+                    </div>
+                    <p>刹那の見切りの開発が順調に進んでいます。現在はプレイヤーキャラクターの動きを調整中で、特に剣を振る動作の感触改善に取り組んでいます。</p>
+                    <a href="#" class="read-more">続きを読む</a>
+                </article>
+                
+                <article class="blog-post">
+                    <div class="blog-date">2025年4月10日</div>
+                    <h3>新メンバー向けUnity勉強会を開催しました</h3>
+                    <div class="blog-image">
+                        <img src="image/blog/blog-image2.jpg" alt="勉強会の様子">
+                    </div>
+                    <p>チーム内でUnityの基本操作から応用テクニックまでの勉強会を実施しました。特に物理エンジンの活用方法について重点的に学習しました。</p>
+                    <a href="#" class="read-more">続きを読む</a>
+                </article>
+                
+                <article class="blog-post">
+                    <div class="blog-date">2025年3月28日</div>
+                    <h3>ゲームデザインドキュメントの完成</h3>
+                    <div class="blog-image">
+                        <img src="image/blog/blog-image3.jpg" alt="ゲームデザイン文書">
+                    </div>
+                    <p>次回作のゲームデザインドキュメントが完成しました。コンセプトは「一瞬の判断が命運を分ける」というテーマに基づいています。</p>
+                    <a href="#" class="read-more">続きを読む</a>
+                </article>
+            </div>
+            
+            <div class="blog-nav">
+                <a href="#" class="older-posts">過去の記事</a>
+                <a href="#" class="all-posts">すべての記事を見る</a>
+            </div>
         </section>
 
         <section id="contact">
             <h2>お問い合わせ</h2>
-            <form>
+            <form action="https://formspree.io/f/mldbdrqp" method="POST">
                 <label for="name">名前:</label>
                 <input type="text" id="name" name="name" required>
+                
+                <label for="email">メールアドレス:</label>
+                <input type="email" id="email" name="_replyto" required placeholder="example@domain.com">
+                
                 <label for="message">メッセージ:</label>
                 <textarea id="message" name="message" required></textarea>
+                
+                <!-- リダイレクト先のURL（任意） -->
+                <input type="hidden" name="_next" value="https://kapi_0622.github.io/IoA-minigame/thanks.html">
+                
+                <!-- スパム対策 -->
+                <input type="text" name="_gotcha" style="display:none">
+                
                 <button type="submit">送信</button>
             </form>
         </section>
