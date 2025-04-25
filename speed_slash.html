@@ -12,7 +12,7 @@
         .game-banner {
             display: flex;
             justify-content: center;
-            margin-top: 5rem; /* ヘッダーで見切れないように上部マージンを追加 */
+            margin-top: 4rem; /* ヘッダーで見切れないように上部マージンを追加 */
             margin-bottom: 2rem;
         }
         
@@ -20,13 +20,119 @@
             width: 50%; /* 画像のサイズを50%に設定 */
             height: auto;
             border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-banner-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .game-content {
+            padding: 0 2rem;
+        }
+        
+        .game-description, .game-screenshots, .game-controls, 
+        .game-development, .play-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-description:hover, .game-screenshots:hover, .game-controls:hover, 
+        .game-development:hover, .play-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+        
+        .game-content h3 {
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        
+        .game-content h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .game-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .game-content ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .game-content ul li::before {
+            content: '▶';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+        
+        .screenshot-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
         }
         
         .screenshot-gallery img {
             width: 50%;
             height: auto;
             border-radius: 8px;
-            margin-bottom: 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .screenshot-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-development p {
+            margin: 0.5rem 0;
+            border-bottom: 1px dotted #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .play-section {
+            text-align: left;
+            background: linear-gradient(135deg, #fff, #f0f7ff);
+        }
+        
+        .play-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
         
         .back-to-home {
@@ -83,41 +189,44 @@
         <div class="game-content">
             <div class="game-description">
                 <h3>ゲーム概要</h3>
-                <p>Speed Slashは、素早い反射神経と正確なタイミングが求められるアクションゲームです。プレイヤーは剣を持ち、画面上に現れる敵や障害物を素早く切り裂いていきます。</p>
+                <p>Speed Slashは、素早い反射神経と正確なタイミングが求められるアクションゲームです。</p>
+                <p>画面上に「！」が現れたら素早く斬る！</p>
+                <p>お手付きしてしまうと、負けになるぞ</p>
                 
                 <h3>ゲームの特徴</h3>
                 <ul>
-                    <li>シンプルな操作ながら奥深いゲームプレイ</li>
-                    <li>スピード感あふれるアクション</li>
-                    <li>スコアを競える高いリプレイ性</li>
-                    <li>多彩なステージと敵キャラクター</li>
+                    <li>シンプルな操作</li>
+                    <li>短い時間でプレイできる！！</li>
+                    <li>反射神経を鍛えるのにおすすめ</li>
+                    
                 </ul>
             </div>
 
             <div class="game-screenshots">
-                <h3>スクリーンショット</h3>
+                <h3>ゲームイメージ</h3>
                 <div class="screenshot-gallery">
                     <img src="image/game/speed_slash.png" alt="Speed Slashのスクリーンショット1">
+                    <img src="image/game/speed_slash2.png" alt="Speed Slashのスクリーンショット2">
                     <!-- 追加のスクリーンショットは後で追加可能 -->
                 </div>
             </div>
 
             <div class="game-controls">
                 <h3>操作方法</h3>
-                <p>マウスをドラッグすることで剣を振ります。素早く正確に敵を切り裂くことでコンボやボーナススコアを獲得できます。</p>
+                <p>SPACEキーを押すと斬れます。</p>
             </div>
 
             <div class="game-development">
                 <h3>開発情報</h3>
-                <p>開発開始: 2025年3月</p>
-                <p>開発者: 髙橋荘悟、池本理柚</p>
-                <p>使用技術: JavaScript, HTML5 Canvas</p>
+                <p>開発開始: 2025年4月</p>
+                <p>開発者: 髙橋荘悟</p>
+                <p>使用技術: Unity UnityAssets_SPAM</p>
             </div>
 
             <div class="play-section">
-                <h3>プレイする</h3>
-                <p>現在開発中のため、もうしばらくお待ちください。リリース情報は開発ブログでお知らせします。</p>
-                <a href="game/index.html" class="play-button">ゲームをプレイする</a> 
+                <h3>プレイ方法</h3>
+                <p>下のボタンを押してね！</p>
+                <a href="game/Unity/index.html" class="play-button">ゲームをプレイする</a> 
         </div>
     </section>
 
