@@ -126,13 +126,14 @@ section:hover {
   flex-direction: column;
   background: white;
   border-radius: 12px;
+  border: solid;
   overflow: hidden;
   transition: var(--transition);
 }
 
 .game img {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 1 / 1; /* 画像を正方形に設定 */
   object-fit: cover;
   border-radius: 12px 12px 0 0;
 }
@@ -402,7 +403,7 @@ footer {
 
 .blog-image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   overflow: hidden;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -480,4 +481,25 @@ footer {
     gap: 1rem;
     align-items: center;
   }
+}
+
+/* 既存のCSSの後に追加 */
+
+/* ゲームリンクのスタイル */
+.game a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  transition: var(--transition);
+}
+
+.game a:hover {
+  transform: translateY(-5px);
+}
+
+.game a h3 {
+  margin: 1rem;
+  color: var(--primary-color);
+  text-align: center;
 }

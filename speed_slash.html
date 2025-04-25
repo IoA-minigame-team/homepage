@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Slash - IoAミニゲーム班</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+    <style>
+        /* Speed Slashページ専用のスタイル */
+        .game-banner {
+            display: flex;
+            justify-content: center;
+            margin-top: 5rem; /* ヘッダーで見切れないように上部マージンを追加 */
+            margin-bottom: 2rem;
+        }
+        
+        .game-banner-img {
+            width: 50%; /* 画像のサイズを50%に設定 */
+            height: auto;
+            border-radius: 12px;
+        }
+        
+        .screenshot-gallery img {
+            width: 50%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .back-to-home a {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .back-to-home a:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>IoAミニゲーム班</h1>
+    
+        <nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home">ホーム</a></li>
+                <li><a href="index.html#games">ゲーム紹介</a></li>
+                <li><a href="index.html#team">チーム紹介</a></li>
+                <li><a href="index.html#blog">開発ブログ</a></li>
+                <li><a href="index.html#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="game-details">
+        <div class="game-header">
+            
+            <div class="game-banner">
+                
+                <img src="image/game/speed_slash.png" alt="Speed Slash" class="game-banner-img">
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div class="game-description">
+                <h3>ゲーム概要</h3>
+                <p>Speed Slashは、素早い反射神経と正確なタイミングが求められるアクションゲームです。プレイヤーは剣を持ち、画面上に現れる敵や障害物を素早く切り裂いていきます。</p>
+                
+                <h3>ゲームの特徴</h3>
+                <ul>
+                    <li>シンプルな操作ながら奥深いゲームプレイ</li>
+                    <li>スピード感あふれるアクション</li>
+                    <li>スコアを競える高いリプレイ性</li>
+                    <li>多彩なステージと敵キャラクター</li>
+                </ul>
+            </div>
+
+            <div class="game-screenshots">
+                <h3>スクリーンショット</h3>
+                <div class="screenshot-gallery">
+                    <img src="image/game/speed_slash.png" alt="Speed Slashのスクリーンショット1">
+                    <!-- 追加のスクリーンショットは後で追加可能 -->
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <h3>操作方法</h3>
+                <p>マウスをドラッグすることで剣を振ります。素早く正確に敵を切り裂くことでコンボやボーナススコアを獲得できます。</p>
+            </div>
+
+            <div class="game-development">
+                <h3>開発情報</h3>
+                <p>開発開始: 2025年3月</p>
+                <p>開発者: 髙橋荘悟、池本理柚</p>
+                <p>使用技術: JavaScript, HTML5 Canvas</p>
+            </div>
+
+            <div class="play-section">
+                <h3>プレイする</h3>
+                <p>現在開発中のため、もうしばらくお待ちください。リリース情報は開発ブログでお知らせします。</p>
+                <a href="game/index.html" class="play-button">ゲームをプレイする</a> 
+        </div>
+    </section>
+
+    <section id="related-blogs">
+        <h2>開発ブログ</h2>
+        <div class="blog-container">
+            <article class="blog-post">
+                <div class="blog-date">2025年4月20日</div>
+                <h3>Speed Slash - 開発進捗報告</h3>
+                <div class="blog-image">
+                    <img src="image/blog/blog1.png" alt="開発中の画面">
+                </div>
+                <p>Speed Slashの開発が順調に進んでいます。現在はプレイヤーキャラクターの動きを調整中で、特に剣を振る動作の感触改善に取り組んでいます。</p>
+                <a href="index.html#blog" class="read-more">続きを読む</a>
+            </article>
+        </div>
+    </section>
+
+    <div class="back-to-home">
+        <a href="index.html">ホームに戻る</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 takahashi & ikemoto</p>
+    </footer>
+</body>
+
+</html>
