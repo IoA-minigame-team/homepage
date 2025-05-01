@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>池本理柚 - IoAミニゲーム班</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Font Awesome アイコン用CDN追加 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/script.js" defer></script>
+    <style>
+        /* メンバー詳細ページ用のスタイル */
+        .member-profile {
+            padding-top: 120px;
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" fill="none"/><circle cx="15" cy="15" r="7" stroke="rgba(126, 87, 194, 0.1)" stroke-width="1" fill="none"/></svg>');
+        }
+        
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            padding: 2rem;
+        }
+        
+        .profile-image-container {
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.02);
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .profile-image::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        .profile-details {
+            color: var(--text-color);
+        }
+        
+        .profile-details h2 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+        }
+        
+        .profile-details h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+        }
+        
+        .info-item {
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-item i {
+            margin-right: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .skill-tag {
+            background: rgba(126, 87, 194, 0.2);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: rgba(0, 230, 118, 0.2);
+            transform: translateY(-3px);
+            border-color: var(--secondary-color);
+        }
+        
+        .works-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .work-item {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .work-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary-color);
+        }
+        
+        .work-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+        
+        .work-info {
+            padding: 1rem;
+        }
+        
+        .work-info h4 {
+            color: var(--secondary-color);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .work-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin: 2rem 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+        }
+        
+        .back-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-button i {
+            margin-right: 0.5rem;
+        }
+        
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-image-container {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .works-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- スクロール進捗バー -->
+    <div class="scroll-progress"></div>
+    
+    <!-- ナビゲーション表示用ボタン -->
+    <div class="nav-trigger">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <header class="nav-hidden">
+        <h1>IoAミニゲーム班</h1>
+    
+        <nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html#games">ゲーム紹介</a></li>
+                <li><a href="../index.html#about">チームについて</a></li>
+                <li><a href="../index.html#team">メンバー紹介</a></li>
+                <li><a href="../index.html#blog">開発ブログ</a></li>
+                <li><a href="../index.html#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="member-profile">
+        <div class="profile-container">
+            <div class="profile-image-container">
+                <img src="../image/profile/ikemoto_profile.jpg" alt="池本理柚" class="profile-image">
+                
+                <div class="social-links">
+                    <a href="https://twitter.com/" class="social-link" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://github.com/" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="profile-details">
+                <h2>池本 理柚</h2>
+                
+                <div class="info-item">
+                    <i class="fas fa-user-tag"></i>
+                    <div>
+                        <strong>役割:</strong> ゲームプログラマー
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div>
+                        <strong>所属:</strong> 金沢工業大学 IoAプロジェクト
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-comment-dots"></i>
+                    <div>
+                        <strong>一言:</strong> 「ちからをためている」
+                    </div>
+                </div>
+                
+                <h3>自己紹介</h3>
+                <p>ゲームプログラマーとして活動しています。特にゲームシステムの設計と実装を担当しています。</p>
+                <p>常に新しいゲームアイデアを模索しており、プレイヤーが直感的に楽しめるゲームデザインを追求しています。「ちからをためている」という言葉には、次なる大きなプロジェクトに向けて準備をしているという意味が込められています。</p>
+                <p>ゲーム開発においては特にキャラクター操作の感触やゲームバランスの調整に力を入れており、プレイヤーが思わず「もう一回」と言いたくなるようなゲーム体験を目指しています。</p>
+                
+                <h3>スキル</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Unity</span>
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">Python</span>
+
+                </div>
+                
+                <h3>作品</h3>
+                <div class="works-list">
+                    <div class="work-item">
+                        <img src="../image/game-template.jpg" alt="未公開プロジェクト" class="work-image">
+                        <div class="work-info">
+                            <h4>未公開プロジェクト</h4>
+                            <p>鋭意開発中</p>
+                        </div>
+                    </div>
+                </div>
+                
+              </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="../index.html#team" class="back-button">
+                <i class="fas fa-arrow-left"></i>メンバー一覧に戻る
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 takahashi & ikemoto</p>
+    </footer>
+</body>
+
+</html>

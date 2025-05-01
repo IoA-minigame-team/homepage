@@ -6,11 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>IoAミニゲーム班作品紹介サイト</title>
         <link rel="stylesheet" href="css/style.css">
+        <!-- Font Awesome アイコン用CDN追加 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <script src="js/script.js" defer></script>
     </head>
 
     <body>
-        <header>
+        <!-- スクロール進捗バー -->
+        <div class="scroll-progress"></div>
+        
+        <!-- ナビゲーション表示用ボタン -->
+        <div class="nav-trigger">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+        <header class="nav-hidden">
             <h1>IoAミニゲーム班</h1>
         
             <nav>
@@ -20,22 +30,20 @@
                     <span></span>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#home">ホーム</a></li>
                     <li><a href="#games">ゲーム紹介</a></li>
-                    <li><a href="#team">チーム紹介</a></li>
+                    <li><a href="#about">チームについて</a></li>
+                    <li><a href="#team">メンバー紹介</a></li>
                     <li><a href="#blog">開発ブログ</a></li>
                     <li><a href="#contact">お問い合わせ</a></li>
                 </ul>
             </nav>
         </header>
 
-        <section id="home">
-            <h2>Welcome to our site!!</h2>
-            <p>ここでは私たちが開発したゲームを紹介します。</p>
-        </section>
-
         <section id="games">
             <h2>ゲーム紹介</h2>
+            <div class="welcome-text">
+                <p>私たちIoAミニゲーム班が開発したゲームをご紹介します。ぜひプレイしてみてください！</p>
+            </div>
             <div class="container">
                 <div class="game">
                     <a href="speed_slash.html">
@@ -58,29 +66,42 @@
             </div>
         </section>
 
+        <section id="about">
+            <h2>チームについて</h2>
+            <div class="about-content">
+                <p>IoAミニゲーム班は、ゲーム開発を楽しみながら学んでいる少人数チームです。</p>
+                <p>私たちは個性的で遊びやすいミニゲームの開発を目指しています。メンバーそれぞれの得意分野を活かして、企画から実装まで協力して取り組んでいます。</p>
+                <p>リリースしたゲームはどなたでも無料でお楽しみいただけます。フィードバックもお待ちしています！</p>
+            </div>
+        </section>
+
         <section id="team">
             <h2>チーム紹介</h2>
             <div class="members-container">
-                <div class="member">
-                    <div class="member-info">
-                        <h3>髙橋荘悟</h3>
-                        <p class="role">役割: ゲーム・Webプログラマー</p>
-                        <p class="comment">「一言コメント：個人開発楽しいっぴ」</p>
+                <a href="member/takahashi.html" class="member-link">
+                    <div class="member">
+                        <div class="member-info">
+                            <h3>髙橋荘悟</h3>
+                            <p class="role">役割: ゲーム・Webプログラマー</p>
+                            <p class="comment">「一言コメント：個人開発楽しいっぴ」</p>
+                        </div>
+                        <div class="member-image">
+                            <img src="image/profile/kapi_profile.jpg" alt="髙橋荘悟">
+                        </div>
                     </div>
-                    <div class="member-image">
-                        <img src="image/profile/kapi_profile.jpg" alt="髙橋荘悟">
+                </a>
+                <a href="member/ikemoto.html" class="member-link">
+                    <div class="member">
+                        <div class="member-info">
+                            <h3>池本理柚</h3>
+                            <p class="role">役割: ゲームプログラマー</p>
+                            <p class="comment">「一言コメント：ちからをためている」</p>
+                        </div>
+                        <div class="member-image">
+                            <img src="image/profile/ikemoto_profile.jpg" alt="池本理柚">
+                        </div>
                     </div>
-                </div>
-                <div class="member">
-                    <div class="member-info">
-                        <h3>池本理柚</h3>
-                        <p class="role">役割: ゲームプログラマー</p>
-                        <p class="comment">「一言コメント：ちからをためている」</p>
-                    </div>
-                    <div class="member-image">
-                        <img src="image/profile/ikemoto_profile.jpg" alt="池本理柚">
-                    </div>
-                </div>
+                </a>
             </div>
         </section>
 

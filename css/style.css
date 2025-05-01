@@ -1,39 +1,163 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+/*--------------------------------------------------------------
+# 1. フォントとルート変数
+--------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+JP:wght@400;500;700&family=Orbitron:wght@400;500;700;900&display=swap');
 
 :root {
-  --primary-color: #4a90e2;
-  --secondary-color: #7fffd4;
-  --text-color: #2c3e50;
-  --background-color: #f8f9fa;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
+  /* カラーパレット */
+  --primary-color: #7e57c2; /* ゲーム風の紫色 */
+  --secondary-color: #00e676; /* ネオングリーン */
+  --accent-color: #ff3d00; /* アクセントカラー */
+  --text-color: #e0e0e0; /* 明るめの文字色 */
+  --background-color: #121212; /* ダークモード背景 */
+  --panel-color: rgba(30, 30, 40, 0.85); /* パネル背景色 */
+  
+  /* エフェクト */
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --glow: 0 0 10px rgba(126, 87, 194, 0.5);
+  --border-glow: 0 0 5px var(--secondary-color);
+  
+  /* アニメーション */
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Base Styles */
+/*--------------------------------------------------------------
+# 2. 基本スタイル
+--------------------------------------------------------------*/
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
 
 body {
-  font-family: 'Noto Sans JP', Arial, sans-serif;
+  font-family: 'Noto Sans JP', 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, var(--background-color), #e9ecef);
+  background: var(--background-color) url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 0L50 50L100 0ZM0 100L50 50L100 100Z" fill="rgba(126, 87, 194, 0.05)"/></svg>');
   color: var(--text-color);
   line-height: 1.6;
+  overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-/* Header and Navigation */
+body.loaded {
+  opacity: 1;
+}
+
+/*--------------------------------------------------------------
+# 3. レイアウト
+--------------------------------------------------------------*/
+.container {
+  max-width: 1100px; /* 最大幅を少し縮小 */
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 共通セクションスタイル */
+section {
+  background-color: var(--panel-color);
+  padding: 2.5rem 1.5rem; /* パディングを調整 */
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  margin: 4rem auto 4rem; /* 上下のマージンを増やす */
+  scroll-margin-top: 150px; /* スクロール時の余白を増やす */
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(126, 87, 194, 0.3);
+  max-width: 1200px; /* コンテンツ幅を調整 */
+  width: 90%; /* 横幅を90%に制限 */
+  color: var(--text-color);
+  overflow: hidden;
+  box-sizing: border-box; /* ボックスサイズの計算方法を修正 */
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  z-index: 1;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path d="M0 0 L50 0 L50 50 Z" fill="rgba(126, 87, 194, 0.2)"/></svg>');
+  z-index: 0;
+}
+
+section h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 2.5rem;
+  font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+  color: var(--secondary-color);
+  text-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+section h2::before {
+  content: '[';
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+  font-weight: 900;
+  transition: all 0.3s ease;
+}
+
+section h2::after {
+  content: ']';
+  color: var(--accent-color);
+  margin-left: 0.5rem;
+  font-weight: 900;
+  transition: all 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: var(--secondary-color);
+}
+
+section:hover h2::before {
+  color: var(--secondary-color);
+  margin-right: 1rem;
+}
+
+section:hover h2::after {
+  color: var(--secondary-color);
+  margin-left: 1rem;
+}
+
+/*--------------------------------------------------------------
+# 4. ヘッダーとナビゲーション
+--------------------------------------------------------------*/
 header {
   background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   color: white;
   padding: 0.5rem 1rem;
   text-align: center;
-  position: fixed;
+  position: fixed; /* 固定位置に設定 */
   width: 100%;
   top: 0;
+  left: 0; /* 左端にも固定 */
   z-index: 1000;
   box-shadow: var(--shadow);
   display: flex;
@@ -41,22 +165,116 @@ header {
   align-items: center;
   justify-content: center;
   height: auto;
+  border-bottom: 3px solid var(--accent-color);
+  overflow: hidden;
+  box-sizing: border-box; /* ボックスサイズの計算方法を修正 */
+  transition: transform 0.3s ease; /* ヘッダーのスライドアニメーション */
+}
+
+/* ヘッダーの上へのスライド（非表示状態） */
+header.nav-hidden {
+  transform: translateY(-100%);
+}
+
+/* ヘッダーのスライドダウン（表示状態） */
+header.nav-visible {
+  transform: translateY(0);
+}
+
+/* トップの小さい固定メニューボタン */
+.nav-trigger {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 45px;
+  height: 45px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 2px solid var(--secondary-color);
+}
+
+.nav-trigger:hover {
+  transform: scale(1.1);
+  background: var(--secondary-color);
+}
+
+.nav-trigger i {
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* スクロール位置表示インジケーター */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--secondary-color);
+  z-index: 1002;
+  transition: width 0.1s linear;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0) 10px,
+    rgba(0, 0, 0, 0) 20px
+  );
+  opacity: 0.3;
+  z-index: -1;
 }
 
 header h1 {
   margin: 0.5rem 0;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-family: 'Press Start 2P', 'Orbitron', cursive;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
 }
 
+header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--secondary-color);
+  box-shadow: var(--glow);
+  animation: pulse 1.5s infinite alternate;
+}
+
+/* ナビゲーション */
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 nav ul li {
   display: inline-block;
-  margin: 0 1rem;
+  margin: 0.3rem 0.8rem;
 }
 
 nav ul li a {
@@ -66,212 +284,49 @@ nav ul li a {
   padding: 0.5rem 1rem;
   transition: var(--transition);
   overflow: hidden;
+  font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+}
+
+nav ul li a:hover {
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+nav ul li a::before {
+  content: '>';
+  position: absolute;
+  left: -10px;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+nav ul li a:hover::before {
+  left: 0;
+  opacity: 1;
 }
 
 nav ul li a::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
-  bottom: 5px;
-  left: 50%;
-  background-color: white;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--secondary-color);
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transform: translateX(-50%);
+  box-shadow: var(--glow);
 }
 
 nav ul li a:hover::after {
   width: 100%;
 }
 
-/* Layout */
-.container {
-  max-width: 1200px;
-  margin: 4rem auto 2rem;
-  padding: 0 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-/* Sections */
-section {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  margin: 1.5rem auto;
-  scroll-margin-top: 100px;
-  position: relative;
-  z-index: 1;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-section h2 {
-  margin: 0 0 1rem 0;
-  font-size: 3rem;
-}
-
-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  border-color: var(--primary-color);
-}
-
-/* Games Section */
-.game {
-  display: flex;
-  flex-direction: column;
-  background: white;
-  border-radius: 12px;
-  border: solid;
-  overflow: hidden;
-  transition: var(--transition);
-}
-
-.game img {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* 画像を正方形に設定 */
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
-}
-
-.game-content {
-  padding: 1.5rem;
-}
-
-/* Team Section */
-.members-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.member {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-}
-
-.member:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-.member-info {
-  flex: 1;
-  padding-right: 2rem;
-}
-
-.member-info h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--primary-color);
-}
-
-.role {
-  color: var(--text-color);
-  margin: 0.5rem 0;
-  font-weight: 500;
-}
-
-.comment {
-  font-style: italic;
-  color: #666;
-  margin: 0.5rem 0;
-}
-
-.member-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--primary-color);
-}
-
-.member-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Form Styles */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-form input, form textarea {
-  padding: 0.8rem;
-  border: 2px solid #e1e1e1;
-  border-radius: 8px;
-  transition: var(--transition);
-  font-family: inherit;
-}
-
-form input:focus, form textarea:focus {
-  border-color: var(--primary-color);
-  outline: none;
-}
-
-form button {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 500;
-}
-
-form button:hover {
-  background-color: #357abd;
-  transform: translateY(-2px);
-}
-
-/* Footer */
-footer {
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-  color: white;
-  text-align: center;
-  padding: 1.5rem;
-  margin-top: 3rem;
-}
-
-/* Section-specific styles */
-#home {
-  padding-top: 90px;
-  min-height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #fff, #f8f9fa);
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-#games, #team, #blog, #contact {
-  padding-top: 90px;
-  margin-top: -30px;
-}
-
-#games { background: linear-gradient(135deg, #fff, #f0f7ff); }
-#team { background: linear-gradient(135deg, #fff, #fff5e6); }
-#blog { background: linear-gradient(135deg, #fff, #f0fff4); }
-#contact { background: linear-gradient(135deg, #fff, #fff0f4); }
-
-/* Hamburger Menu */
+/* ハンバーガーメニュー */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -300,8 +355,998 @@ footer {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
 
-/* Responsive Design */
+/*--------------------------------------------------------------
+# 5. フッター
+--------------------------------------------------------------*/
+footer {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: #000;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 10px,
+    rgba(0, 0, 0, 0) 10px,
+    rgba(0, 0, 0, 0) 20px
+  );
+  opacity: 1;
+  z-index: 0;
+}
+
+footer p {
+  position: relative;
+  z-index: 1;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/*--------------------------------------------------------------
+# 6. 各セクション固有のスタイル
+--------------------------------------------------------------*/
+/* ホームセクション */
+#home {
+  padding-top: 120px;
+  min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="none"/><circle cx="10" cy="10" r="1" fill="rgba(126, 87, 194, 0.15)"/></svg>');
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+#home h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: gameTitle 3s infinite alternate;
+  font-family: 'Press Start 2P', 'Orbitron', cursive;
+  text-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
+}
+
+#home p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  line-height: 1.8;
+  margin: 1rem 0;
+  font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+  position: relative;
+}
+
+/* ゲーム紹介セクション */
+#games {
+  padding-top: 120px;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" fill="none"/><path d="M15 5 L25 15 L15 25 L5 15 Z" stroke="rgba(126, 87, 194, 0.1)" stroke-width="1" fill="none"/></svg>');
+  margin-bottom: 6rem; /* マージンを大幅に増加 */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.welcome-text {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* チーム紹介セクション */
+#about {
+  padding-top: 120px; /* パディングを増やす */
+  margin-top: 0; /* ネガティブマージンを削除 */
+  margin-bottom: 6rem; /* マージンを大幅に増加 */
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="none"/><circle cx="10" cy="10" r="1" fill="rgba(126, 87, 194, 0.15)"/></svg>');
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-content p {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+.about-content p:first-child {
+  font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px rgba(0, 230, 118, 0.3);
+}
+
+/* 共通セクションパディング */
+#team, #blog, #contact {
+  padding-top: 120px;
+  margin-top: 0; /* ネガティブマージンを削除 */
+  margin-bottom: 6rem; /* マージンを大幅に増加 */
+}
+
+/* セクション背景パターン */
+#team { 
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" fill="none"/><circle cx="15" cy="15" r="7" stroke="rgba(126, 87, 194, 0.1)" stroke-width="1" fill="none"/></svg>');
+}
+#blog { 
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" fill="none"/><rect x="8" y="8" width="14" height="14" stroke="rgba(126, 87, 194, 0.1)" stroke-width="1" fill="none"/></svg>');
+}
+#contact { 
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" fill="none"/><path d="M5 15 L15 5 L25 15 L15 25 Z" stroke="rgba(126, 87, 194, 0.1)" stroke-width="1" fill="none"/></svg>');
+}
+
+/* サンクスページ */
+#thanks {
+  margin-top: 120px;
+  text-align: center;
+  padding: 3rem;
+}
+
+.back-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 2rem;
+  transition: var(--transition);
+}
+
+.back-button:hover {
+  background-color: #357abd;
+  transform: translateY(-2px);
+}
+
+/*--------------------------------------------------------------
+# 7. ゲームカードのスタイル
+--------------------------------------------------------------*/
+.game {
+  display: flex;
+  flex-direction: column;
+  background: rgba(20, 20, 30, 0.7);
+  border-radius: 12px;
+  border: 2px solid var(--primary-color);
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.game::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  z-index: -1;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.game:hover::before {
+  opacity: 0.8;
+}
+
+.game img {
+  width: 100%;
+  aspect-ratio: 4 / 4;
+  object-fit: cover;
+  border-bottom: 2px solid var (--primary-color);
+  filter: brightness(0.9);
+  transition: all 0.5s ease;
+}
+
+.game:hover img {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+.game-content {
+  padding: 1.5rem;
+  color: var(--text-color);
+}
+
+/* ゲームリンク */
+.game a {
+  display: block;
+  color: var(--text-color);
+  text-decoration: none;
+  height: 100%;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ゲームプレイボタンの強調表示 */
+.game a::after {
+  content: 'PLAY NOW';
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  background: linear-gradient(to right, #ff3d00, #ff9100);
+  color: white;
+  text-align: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.game:hover a::after {
+  bottom: 0;
+  opacity: 1;
+  animation: pulse-button 1.5s infinite alternate;
+}
+
+@keyframes pulse-button {
+  0% {
+    box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 5px 20px rgba(255, 61, 0, 0.7), 0 0 10px rgba(255, 61, 0, 0.5);
+  }
+}
+
+/* 未開発ゲーム表示 */
+.game a[href="#"]::after {
+  content: 'UNDER DEVELOPMENT';
+  background: linear-gradient(to right, var(--accent-color), #ff9e80);
+  animation: none;
+}
+
+.game a h3 {
+  margin: 0.7rem;
+  color: var(--secondary-color);
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(0, 230, 118, 0.3);
+}
+
+/* 未開発ゲーム表示 */
+.game a[href="#"] h3::after {
+  content: '- COMING SOON -';
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  color: var (--accent-color);
+  letter-spacing: 1px;
+}
+
+/*--------------------------------------------------------------
+# 8. チームメンバーセクション
+--------------------------------------------------------------*/
+.members-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.member-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: var(--transition);
+  position: relative;
+}
+
+.member-link::after {
+  content: 'プロフィールを見る';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: var(--secondary-color);
+  color: #000;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.member-link:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.member-link:hover .member {
+  transform: translateY(-5px) translateX(3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: var(--secondary-color);
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(20, 20, 30, 0.7);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border-left: 4px solid var(--accent-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.member::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0 L100 0 L100 100 Z" fill="rgba(255, 61, 0, 0.1)"/></svg>');
+  z-index: 0;
+}
+
+.member:hover {
+  transform: translateY(-5px) translateX(3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: var(--secondary-color);
+}
+
+.member-info {
+  flex: 1;
+  padding-right: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.member-info h3 {
+  margin: 0 0 0.8rem 0;
+  color: var(--secondary-color);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px rgba(0, 230, 118, 0.3);
+  position: relative;
+  display: inline-block;
+}
+
+.member-info h3::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, var(--secondary-color), transparent);
+}
+
+.role {
+  color: var(--text-color);
+  margin: 0.8rem 0;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+  position: relative;
+  padding-left: 20px;
+}
+
+.role::before {
+  content: '⬥';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+}
+
+.comment {
+  font-style: italic;
+  color: #aaa;
+  margin: 0.8rem 0;
+  padding: 0.5rem 0.8rem;
+  border-left: 2px solid var(--primary-color);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0 4px 4px 0;
+}
+
+.member-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 0 15px rgba(126, 87, 194, 0.3);
+  transform: rotate(3deg);
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.member:hover .member-image {
+  transform: rotate(0deg) scale(1.05);
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+.member-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.1);
+  transition: all 0.5s ease;
+}
+
+.member:hover .member-image img {
+  filter: contrast(1.2) brightness(1.1);
+}
+
+/*--------------------------------------------------------------
+# 9. 開発ブログのスタイル
+--------------------------------------------------------------*/
+.blog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.blog-post {
+  background: rgba(20, 20, 30, 0.7);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  padding: 1.8rem;
+  border-left: 3px solid var(--primary-color);
+  position: relative;
+}
+
+.blog-post::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M0 80 L80 80 L80 0 Z" fill="rgba(126, 87, 194, 0.1)"/></svg>');
+  z-index: 0;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px) translateX(2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: var (--secondary-color);
+}
+
+.blog-date {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 0.7rem;
+  font-family: 'Orbitron', monospace;
+  padding-left: 18px;
+  position: relative;
+}
+
+.blog-date::before {
+  content: '⬤';
+  position: absolute;
+  left: 0;
+  font-size: 0.5rem;
+  color: var(--accent-color);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.blog-post h3 {
+  color: var(--secondary-color);
+  margin: 0 0 1.2rem 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 5px rgba(0, 230, 118, 0.3);
+}
+
+.blog-post h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, var(--secondary-color), transparent);
+}
+
+.blog-image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 2px solid rgba(126, 87, 194, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.blog-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 70%, rgba(20, 20, 30, 0.8));
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.blog-post:hover .blog-image::before {
+  opacity: 1;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  filter: brightness(0.9);
+}
+
+.blog-post:hover .blog-image img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.blog-post p {
+  margin: 0 0 1.2rem 0;
+  line-height: 1.8;
+  color: var(--text-color);
+  position: relative;
+  z-index: 1;
+}
+
+.read-more {
+  display: inline-block;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 1px solid var(--primary-color);
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+}
+
+.read-more:hover {
+  background: rgba(126, 87, 194, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-color: var(--secondary-color);
+}
+
+.blog-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+}
+
+.older-posts, .all-posts {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: rgba(20, 20, 30, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: var(--transition);
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.older-posts::before, .all-posts::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: all 0.5s ease;
+}
+
+.older-posts:hover::before, .all-posts:hover::before {
+  left: 100%;
+}
+
+.older-posts:hover, .all-posts:hover {
+  background: rgba(126, 87, 194, 0.2);
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/*--------------------------------------------------------------
+# 9.5. SNS共有機能
+--------------------------------------------------------------*/
+#share {
+  padding-top: 120px;
+  margin-top: 0;
+  margin-bottom: 6rem;
+  background: var(--panel-color) url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" fill="none"/><path d="M5 15 L15 5 L25 15" stroke="rgba(126, 87, 194, 0.1)" stroke-width="1" fill="none"/></svg>');
+}
+
+.share-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.share-intro {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.sns-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.sns-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  min-width: 160px;
+  box-shadow: var(--shadow);
+  font-family: 'Orbitron', sans-serif;
+}
+
+.sns-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sns-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.sns-button:hover::before {
+  left: 100%;
+}
+
+.sns-button i {
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.twitter {
+  background: #1DA1F2;
+  border: 2px solid #1DA1F2;
+}
+
+.twitter:hover {
+  background: #0d8ad3;
+}
+
+.facebook {
+  background: #4267B2;
+  border: 2px solid #4267B2;
+}
+
+.facebook:hover {
+  background: #365899;
+}
+
+.line {
+  background: #06C755;
+  border: 2px solid #06C755;
+}
+
+.line:hover {
+  background: #05a548;
+}
+
+.reddit {
+  background: #FF4500;
+  border: 2px solid #FF4500;
+}
+
+.reddit:hover {
+  background: #e03d00;
+}
+
+.share-form {
+  background: rgba(20, 20, 30, 0.7);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 3rem;
+  border: 1px solid rgba(126, 87, 194, 0.3);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.share-form h3 {
+  margin-top: 0;
+  color: var(--secondary-color);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 5px rgba(0, 230, 118, 0.3);
+}
+
+.share-form textarea {
+  width: 100%;
+  min-height: 100px;
+  background: rgba(10, 10, 15, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  padding: 1rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+.share-form textarea:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+}
+
+.share-form select {
+  padding: 0.8rem;
+  background: rgba(10, 10, 15, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.share-form select:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+}
+
+.character-count {
+  color: #aaa;
+  font-size: 0.9rem;
+  text-align: right;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 768px) {
+  .sns-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sns-button {
+    width: 80%;
+  }
+}
+
+/*--------------------------------------------------------------
+# 10. フォームスタイル
+--------------------------------------------------------------*/
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+form::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 1px solid rgba(126, 87, 194, 0.3);
+  border-radius: 15px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+form label {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--secondary-color);
+  margin-bottom: 0.3rem;
+  display: block;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+form input, form textarea {
+  padding: 1rem;
+  background: rgba(10, 10, 15, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  transition: var(--transition);
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text-color);
+  resize: vertical;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+form input:focus, form textarea:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+form textarea {
+  min-height: 150px;
+}
+
+form button {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: #000;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: all 0.5s ease;
+}
+
+form button:hover::before {
+  left: 100%;
+}
+
+form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+}
+
+/*--------------------------------------------------------------
+# 11. アニメーションとエフェクト
+--------------------------------------------------------------*/
+@keyframes pulse {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+@keyframes gameTitle {
+  0% { text-shadow: 0 0 10px rgba(0, 230, 118, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(0, 230, 118, 0.8), 0 0 30px rgba(0, 230, 118, 0.4); }
+  100% { text-shadow: 0 0 10px rgba(0, 230, 118, 0.5); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px rgba(0, 230, 118, 0.5); }
+  50% { text-shadow: 0 0 15px rgba(0, 230, 118, 0.8), 0 0 20px rgba(0, 230, 118, 0.5); }
+  100% { text-shadow: 0 0 5px rgba(0, 230, 118, 0.5); }
+}
+
+@keyframes borderPulse {
+  0% { border-color: var(--primary-color); }
+  50% { border-color: var(--secondary-color); }
+  100% { border-color: var(--primary-color); }
+}
+
+@keyframes shine {
+  0% { transform: rotate(30deg) translateX(-100%); }
+  100% { transform: rotate(30deg) translateX(100%); }
+}
+
+/* 特殊効果クラス */
+.pulse {
+  animation: glow 2s infinite alternate;
+}
+
+.title-glow {
+  animation: glow 1.5s infinite alternate;
+}
+
+/* フェードインアニメーション */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*--------------------------------------------------------------
+# 12. レスポンシブデザイン
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  /* ヘッダーとナビゲーション */
   .hamburger {
     display: block;
     right: 15px; /* 右端からの距離を縮める */
@@ -311,7 +1356,8 @@ footer {
   header {
     padding: 0.5rem 0.8rem; /* ヘッダーのパディングを少し調整 */
     box-sizing: border-box; /* ボックスサイズの計算方法を変更 */
-    position: relative; /* ポジション設定を変更 */
+    position: fixed; /* ポジション固定に変更 */
+    width: 100%;
   }
 
   nav ul {
@@ -320,12 +1366,15 @@ footer {
     top: 80px;
     left: 0;
     width: 100%;
-    background: rgba(74, 144, 226, 0.95);
+    background: rgba(20, 20, 30, 0.95); /* 背景色を濃い色に変更 */
     padding: 20px 0;
     text-align: center;
     box-sizing: border-box; /* ボックスサイズの計算方法を変更 */
     max-width: 100vw; /* 画面幅に合わせる */
     overflow-x: hidden; /* 横方向のスクロールを防止 */
+    z-index: 999; /* z-indexを追加して重なり順を制御 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 影を追加 */
+    border-top: 2px solid var(--secondary-color); /* 上部に境界線を追加 */
   }
 
   nav ul.active {
@@ -333,11 +1382,7 @@ footer {
     animation: fadeIn 0.3s ease; /* アニメーション効果を追加 */
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
+  /* チームメンバー */
   .member {
     flex-direction: column;
     text-align: center;
@@ -353,137 +1398,8 @@ footer {
     width: 120px;
     height: 120px;
   }
-}
 
-/* 既存のCSSの後に追加 */
-
-#thanks {
-    margin-top: 120px;
-    text-align: center;
-    padding: 3rem;
-}
-
-.back-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    margin-top: 2rem;
-    transition: var(--transition);
-}
-
-.back-button:hover {
-    background-color: #357abd;
-    transform: translateY(-2px);
-}
-
-/* 開発ブログのスタイル */
-.blog-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 1500px;
-  margin: 2rem auto ;
-}
-
-.blog-post {
-  background: white;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: var(--transition);
-  padding: 1.5rem; /* パディングを追加して内容と枠の間隔を広げる */
-}
-
-.blog-post:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.blog-date {
-  color: #777;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-
-.blog-post h3 {
-  color: var(--primary-color);
-  margin: 0 0 1rem 0;
-}
-
-.blog-image {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.blog-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.blog-post:hover .blog-image img {
-  transform: scale(1.05);
-}
-
-.blog-post p {
-  margin: 0 0 1rem 0;
-  line-height: 1.8; /* 行間を広げる (1.6から1.8へ) */
-}
-
-.read-more {
-  display: inline-block;
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  padding-bottom: 3px;
-}
-
-.read-more::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--primary-color);
-  transition: width 0.3s ease;
-}
-
-.read-more:hover::after {
-  width: 100%;
-}
-
-.blog-nav {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-}
-
-.older-posts, .all-posts {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.older-posts:hover, .all-posts:hover {
-  background-color: #e0e0e0;
-}
-
-/* レスポンシブ対応 */
-@media screen and (max-width: 768px) {
+  /* ブログ */
   .blog-container {
     padding: 0 1rem;
   }
@@ -493,25 +1409,13 @@ footer {
     gap: 1rem;
     align-items: center;
   }
-}
-
-/* 既存のCSSの後に追加 */
-
-/* ゲームリンクのスタイル */
-.game a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  height: 100%;
-  transition: var(--transition);
-}
-
-.game a:hover {
-  transform: translateY(-5px);
-}
-
-.game a h3 {
-  margin: 1rem;
-  color: var(--primary-color);
-  text-align: center;
+  
+  .sns-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sns-button {
+    width: 80%;
+  }
 }
