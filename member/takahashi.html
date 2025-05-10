@@ -206,6 +206,7 @@
         @media screen and (max-width: 768px) {
             .profile-container {
                 grid-template-columns: 1fr;
+                padding: 1.5rem;
             }
             
             .profile-image-container {
@@ -213,8 +214,90 @@
                 margin: 0 auto;
             }
             
+            .profile-details h2 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+            
+            .profile-details h3 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 0.8rem;
+            }
+            
             .works-list {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .info-item {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            
+            .skill-list {
+                justify-content: center;
+            }
+            
+            /* ハンバーガーメニューを表示するように修正 */
+            nav .hamburger {
+                display: block;
+            }
+            
+            /* ナビゲーションが表示される際の追加スタイル */
+            nav ul.active {
+                display: block !important;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        /* 小さい画面サイズでのさらなる調整 */
+        @media screen and (max-width: 480px) {
+            .profile-container {
+                padding: 1rem;
+            }
+            
+            .profile-details h2 {
+                font-size: 1.8rem;
+            }
+            
+            .profile-details h3 {
+                font-size: 1.2rem;
+            }
+            
+            .works-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .back-button {
+                display: block;
+                text-align: center;
+                padding: 0.7rem 1rem;
+                width: 80%;
+                margin: 2rem auto;
+                font-size: 0.9rem;
+            }
+            
+            .info-item {
+                align-items: flex-start;
+            }
+            
+            .info-item i {
+                font-size: 1rem;
+                margin-top: 0.3rem;
+            }
+            
+            /* タッチ対応のためにタッチ領域を拡大 */
+            .social-link {
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
@@ -291,9 +374,9 @@
                 </div>
                 
                 <h3>自己紹介</h3>
-                <p>普段はゲーム開発とWebプログラミングを行っています。趣味はエフェクト作りと新しい技術の探求です。</p>
+                <p>普段はゲーム開発やweb開発をやっています。</p>
                 <p>誰もが楽しめるゲーム体験を作ることを目指して、日々開発に取り組んでいます。特に短時間で楽しめるミニゲームの開発に情熱を注いでいます。</p>
-                <p>ミニゲームの開発以外にも、WebサイトやSNS連携機能の実装など、多岐に渡る技術分野に挑戦しています。</p>
+                <p>それ以外だと、「SAKITO」という学内で使えるアンケート・ポイ活サービスのリーダーもやってます。</p>
                 
                 <h3>スキル</h3>
                 <div class="skill-list">

@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ナビゲーショントリガーボタンのクリックイベント
     navTrigger.addEventListener('click', () => {
         toggleNavigation();
+        
+        // スマートフォンサイズの場合、メニューもトグルする
+        if (window.innerWidth <= 768) {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
     });
     
     // スクロールイベントを監視
