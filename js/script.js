@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollProgress = document.querySelector('.scroll-progress');
     
     // 前回のスクロール位置を記録
-    let lastScrollTop = 0;
+    // let lastScrollTop = 0; // 不要になったためコメントアウト
     
     // スクロール関連の変数
-    let isScrolling = false;
-    let scrollTimeout;
+    // let isScrolling = false; // 不要になったためコメントアウト
+    // let scrollTimeout; // 不要になったためコメントアウト
     
     // ハンバーガーメニューのクリックイベント
     hamburger.addEventListener('click', () => {
@@ -52,35 +52,51 @@ document.addEventListener('DOMContentLoaded', () => {
         // スクロール進捗バーの更新
         updateScrollProgress();
         
-        // スクロール方向に基づいてナビゲーションの表示/非表示を制御
+        // ヘッダーの透明度を更新
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // スクロールしていることをマーク
-        isScrolling = true;
-        clearTimeout(scrollTimeout);
-        
-        // スクロール停止の検出
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-        }, 150);
-        
-        // スクロール方向の検出（上or下）
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // 下にスクロール - ナビゲーションを隠す
-            if (!header.classList.contains('nav-hidden')) {
-                header.classList.add('nav-hidden');
-                header.classList.remove('nav-visible');
-            }
-        } else if (scrollTop < lastScrollTop) {
-            // 上にスクロール - ナビゲーションを表示
-            if (header.classList.contains('nav-hidden')) {
-                header.classList.remove('nav-hidden');
-                header.classList.add('nav-visible');
-            }
+        if (scrollTop > 0) {
+            header.classList.remove('at-top');
+        } else {
+            header.classList.add('at-top');
         }
         
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        // スクロール方向に基づいてナビゲーションの表示/非表示を制御
+        // const scrollTop = window.pageYOffset || document.documentElement.scrollTop; // 重複のためコメントアウト
+        
+        // スクロールしていることをマーク
+        // isScrolling = true; // 不要になったためコメントアウト
+        // clearTimeout(scrollTimeout); // 不要になったためコメントアウト
+        
+        // スクロール停止の検出
+        // scrollTimeout = setTimeout(() => { // 不要になったためコメントアウト
+        //     isScrolling = false;
+        // }, 150);
+        
+        // スクロール方向の検出（上or下）
+        // if (scrollTop > lastScrollTop && scrollTop > 100) { // 不要になったためコメントアウト
+        //     // 下にスクロール - ナビゲーションを隠す
+        //     if (!header.classList.contains('nav-hidden')) {
+        //         header.classList.add('nav-hidden');
+        //         header.classList.remove('nav-visible');
+        //     }
+        // } else if (scrollTop < lastScrollTop) {
+        //     // 上にスクロール - ナビゲーションを表示
+        //     if (header.classList.contains('nav-hidden')) {
+        //         header.classList.remove('nav-hidden');
+        //         header.classList.add('nav-visible');
+        //     }
+        // }
+        
+        // lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // 不要になったためコメントアウト
     });
+    
+    // 初期状態でヘッダーの透明度を設定
+    const initialScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (initialScrollTop > 0) {
+        header.classList.remove('at-top');
+    } else {
+        header.classList.add('at-top');
+    }
     
     // スクロール進捗バーを更新する関数
     function updateScrollProgress() {
@@ -91,15 +107,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ナビゲーションの表示/非表示を切り替える関数
-    function toggleNavigation() {
-        if (header.classList.contains('nav-hidden')) {
-            header.classList.remove('nav-hidden');
-            header.classList.add('nav-visible');
-        } else {
-            header.classList.add('nav-hidden');
-            header.classList.remove('nav-visible');
-        }
-    }
+    // function toggleNavigation() { // 不要になったためコメントアウト
+    //     if (header.classList.contains('nav-hidden')) {
+    //         header.classList.remove('nav-hidden');
+    //         header.classList.add('nav-visible');
+    //     } else {
+    //         header.classList.add('nav-hidden');
+    //         header.classList.remove('nav-visible');
+    //     }
+    // }
     
     // ナビゲーションを一時的に表示する関数
     function showNavigationTemporarily() {

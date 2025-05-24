@@ -150,10 +150,12 @@ section:hover h2::after {
 # 4. ヘッダーとナビゲーション
 --------------------------------------------------------------*/
 header {
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  /* background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); */
+  background-color: rgba(126, 87, 194, 0.8); /* 半透明のプライマリカラーに変更 */
+  backdrop-filter: blur(10px); /* ガラス効果を追加 */
   color: white;
-  padding: 0.5rem 1rem;
-  text-align: center;
+  padding: 0.5rem 1rem; /* パディングを調整 */
+  /* text-align: center; */ /* 中央揃えを解除 */
   position: fixed; /* 固定位置に設定 */
   width: 100%;
   top: 0;
@@ -161,97 +163,73 @@ header {
   z-index: 1000;
   box-shadow: var(--shadow);
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */ /* 横並びに変更 */
   align-items: center;
-  justify-content: center;
-  height: auto;
-  border-bottom: 3px solid var(--accent-color);
+  justify-content: space-between; /* アイコンとナビゲーションを両端に配置 */
+  height: 60px; /* ヘッダーの高さを固定 */
+  border-bottom: 1px solid rgba(126, 87, 194, 0.3); /* 細い境界線に変更 */
   overflow: hidden;
   box-sizing: border-box; /* ボックスサイズの計算方法を修正 */
-  transition: transform 0.3s ease; /* ヘッダーのスライドアニメーション */
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* トランジションを追加 */
 }
+
+/* ヘッダーが最上部でない場合のスタイル */
+header:not(.at-top) {
+  background-color: rgba(126, 87, 194, 0.8); /* 半透明度を維持 (プライマリカラーベース) */
+}
+
+/* ヘッダーが最上部の場合のスタイル */
+header.at-top {
+  background-color: transparent; /* 背景を透明に */
+  box-shadow: none; /* 影を削除 */
+}
+
 
 /* ヘッダーの上へのスライド（非表示状態） */
-header.nav-hidden {
+/* header.nav-hidden {
   transform: translateY(-100%);
-}
+} */
 
 /* ヘッダーのスライドダウン（表示状態） */
-header.nav-visible {
+/* header.nav-visible {
   transform: translateY(0);
+} */
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 要素間のスペースを均等に配置 */
+    width: 100%; /* コンテンツがヘッダー全体に広がるようにする */
 }
 
-/* トップの小さい固定メニューボタン */
-.nav-trigger {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  width: 45px;
-  height: 45px;
-  background: var(--primary-color);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1001;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  border: 2px solid var(--secondary-color);
+.header-icon {
+    height: 40px; /* アイコンの高さを調整 */
+    width: auto;
+    margin-right: 0.5rem; /* アイコンとタイトルの間にマージンを調整 */
 }
 
-.nav-trigger:hover {
-  transform: scale(1.1);
-  background: var(--secondary-color);
+.header-title {
+    font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+    font-size: 1.2rem; /* 文字サイズを調整 */
+    font-weight: 700;
+    color: var(--text-color); /* 文字色を調整 */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    margin-right: 1rem; /* タイトルとナビゲーションの間にマージンを追加 */
 }
 
-.nav-trigger i {
-  color: white;
-  font-size: 1.5rem;
-}
-
-/* スクロール位置表示インジケーター */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background: var(--secondary-color);
-  z-index: 1002;
-  transition: width 0.1s linear;
-}
-
-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(0, 0, 0, 0.1),
-    rgba(0, 0, 0, 0.1) 10px,
-    rgba(0, 0, 0, 0) 10px,
-    rgba(0, 0, 0, 0) 20px
-  );
-  opacity: 0.3;
-  z-index: -1;
-}
-
+/* ヘッダーのタイトル */
 header h1 {
-  margin: 0.5rem 0;
-  font-size: 2rem;
-  font-family: 'Press Start 2P', 'Orbitron', cursive;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-  letter-spacing: 2px;
-  position: relative;
-  display: inline-block;
+  margin: 0; /* h1のデフォルトマージンを削除 */
+  /* font-size: 2rem; */ /* サイズ調整は不要になったためコメントアウト */
+  /* font-family: \'Press Start 2P\', \'Orbitron\', cursive; */
+  /* text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); */
+  /* letter-spacing: 2px; */
+  /* position: relative; */
+  /* display: inline-block; */
 }
 
-header h1::after {
-  content: '';
+/* header h1::after {
+  content: \'\';
   position: absolute;
   bottom: -8px;
   left: 0;
@@ -260,13 +238,16 @@ header h1::after {
   background: var(--secondary-color);
   box-shadow: var(--glow);
   animation: pulse 1.5s infinite alternate;
-}
+} */
 
 /* ナビゲーション */
+nav {
+    margin-left: auto; /* ナビゲーションを右側に寄せる */
+}
 nav ul {
   list-style: none;
   padding: 0;
-  margin: 0.5rem 0;
+  margin: 0; /* ulのデフォルトマージンを削除 */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -1152,7 +1133,7 @@ footer p {
   color: white;
   text-decoration: none;
   border-radius: 50px;
-  font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+  font-family: 'Orbitron', 'Noto Sans+JP', sans-serif;
   transition: all 0.3s ease;
   margin: 1.5rem 0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -1242,176 +1223,71 @@ footer p {
 }
 
 @media screen and (max-width: 768px) {
-  /* ヘッダーとナビゲーション */
-  .hamburger {
-    display: block;
-    right: 15px; /* 右端からの距離を縮める */
-    z-index: 1001; /* 他の要素より前面に表示 */
+  /* ハンバーガーメニュー関連のスタイル調整 */
+  nav .hamburger {
+    display: block; /* ハンバーガーメニューを表示 */
+    position: absolute; /* header-contentに対して絶対配置 */
+    right: 1rem; /* 右端からの位置 */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001; /* ナビゲーションメニューより手前に */
   }
 
-  header {
-    padding: 0.5rem 0.8rem; /* ヘッダーのパディングを少し調整 */
-    box-sizing: border-box; /* ボックスサイズの計算方法を変更 */
-    position: fixed; /* ポジション固定に変更 */
-    width: 100%;
-  }
-
-  /* スマホ用ナビゲーションメニュースタイル */
   nav ul {
-    display: none;
+    display: flex; /* 初期状態はflexにしておく */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 上から配置 */
     position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: rgba(20, 20, 30, 0.95); /* 背景色を濃い色に変更 */
-    padding: 20px 0;
-    text-align: center;
-    box-sizing: border-box; /* ボックスサイズの計算方法を変更 */
-    max-width: 100vw; /* 画面幅に合わせる */
-    overflow-x: hidden; /* 横方向のスクロールを防止 */
-    z-index: 999; /* z-indexを追加して重なり順を制御 */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 影を追加 */
-    border-top: 2px solid var(--secondary-color); /* 上部に境界線を追加 */
+    top: 0;
+    right: -100%; /* 初期状態では画面外の右側に配置 (幅100%で隠す) */
+    width: 70%; /* メニューの幅を調整 */
+    max-width: 300px; /* 最大幅を設定 */
+    height: 100vh;
+    background-color: var(--panel-color);
+    padding-top: 60px; /* ヘッダーの高さ分オフセット */
+    transition: right 0.3s ease-in-out;
+    z-index: 1000; /* ヘッダーより手前、ハンバーガーより奥 */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    overflow-y: auto; /* メニュー項目が多い場合にスクロール可能に */
   }
 
   nav ul.active {
-    display: block !important; /* !importantを追加して必ず表示されるようにする */
-    animation: fadeIn 0.3s ease; /* アニメーション効果を追加 */
+    right: 0; /* activeクラスが付いたら右端に表示 */
   }
-  
-  /* スマホサイズでのメニュー項目スタイル調整 */
+
   nav ul li {
     display: block;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li a {
-    display: block;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(126, 87, 194, 0.2);
-    font-size: 1.1rem;
-  }
-  
-  nav ul li:last-child a {
-    border-bottom: none;
-  }
-  
-  /* メニュー項目ホバー時の視覚効果 */
-  nav ul li a:hover {
-    background-color: rgba(0, 230, 118, 0.1);
-  }
-
-  /* チームメンバー */
-  .member {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-  }
-
-  .member-info {
-    padding-right: 0;
-    padding-bottom: 1rem;
-  }
-
-  .member-image {
-    width: 120px;
-    height: 120px;
-  }
-
-  /* ブログ */
-  .blog-container {
-    padding: 0 1rem;
-  }
-  
-  .blog-nav {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .sns-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .sns-button {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  /* ヘッダーとナビゲーション */
-  header h1 {
-    font-size: 1.5rem;
-    margin: 0.3rem 0;
-  }
-  
-  .hamburger {
-    display: block;
-    right: 15px;
-    z-index: 1001;
-  }
-
-  header {
-    padding: 0.5rem 0.8rem;
-    box-sizing: border-box;
-    position: fixed;
     width: 100%;
-  }
-
-  /* スマホ用ナビゲーションメニュースタイル */
-  nav ul {
-    display: none;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: rgba(20, 20, 30, 0.95);
-    padding: 20px 0;
     text-align: center;
-    box-sizing: border-box;
-    max-width: 100vw;
-    overflow-x: hidden;
-    z-index: 999;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-top: 2px solid var(--secondary-color);
+    margin: 0; /* マージンをリセット */
   }
 
-  nav ul.active {
-    display: block !important;
-    animation: fadeIn 0.3s ease;
-  }
-  
-  /* スマホサイズでのメニュー項目スタイル調整 */
-  nav ul li {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
-  
   nav ul li a {
+    padding: 1.2rem 1rem; /* パディングを調整 */
     display: block;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(126, 87, 194, 0.2);
-    font-size: 1.1rem;
-  }
-  
-  nav ul li:last-child a {
-    border-bottom: none;
-  }
-  
-  /* メニュー項目ホバー時の視覚効果 */
-  nav ul li a:hover {
-    background-color: rgba(0, 230, 118, 0.1);
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 区切り線 */
+    transition: background-color 0.2s ease;
   }
 
-  /* セクション見出し調整 */
-  section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+  nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* ホバー時の背景色 */
+    color: var(--secondary-color); /* ホバー時の文字色 */
   }
-  
+
+  /* ヘッダータイトルの調整 */
+  .header-title {
+    font-size: 1rem; /* スマホでは少し小さく */
+    margin-right: auto; /* ハンバーガーメニューとのスペースを確保 */
+    padding-left: 0.5rem; /* アイコンとのスペース調整 */
+  }
+
+  .header-icon {
+    height: 35px; /* スマホでは少し小さく */
+  }
+
+  /* 他のレスポンシブスタイル ... */
   section {
     padding: 1.5rem 1rem;
     margin: 3rem auto;
@@ -1704,176 +1580,71 @@ form button:hover {
 # 12. レスポンシブデザイン
 --------------------------------------------------------------*/
 @media screen and (max-width: 768px) {
-  /* ヘッダーとナビゲーション */
-  .hamburger {
-    display: block;
-    right: 15px; /* 右端からの距離を縮める */
-    z-index: 1001; /* 他の要素より前面に表示 */
+  /* ハンバーガーメニュー関連のスタイル調整 */
+  nav .hamburger {
+    display: block; /* ハンバーガーメニューを表示 */
+    position: absolute; /* header-contentに対して絶対配置 */
+    right: 1rem; /* 右端からの位置 */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001; /* ナビゲーションメニューより手前に */
   }
 
-  header {
-    padding: 0.5rem 0.8rem; /* ヘッダーのパディングを少し調整 */
-    box-sizing: border-box; /* ボックスサイズの計算方法を変更 */
-    position: fixed; /* ポジション固定に変更 */
-    width: 100%;
-  }
-
-  /* スマホ用ナビゲーションメニュースタイル */
   nav ul {
-    display: none;
+    display: flex; /* 初期状態はflexにしておく */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 上から配置 */
     position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: rgba(20, 20, 30, 0.95); /* 背景色を濃い色に変更 */
-    padding: 20px 0;
-    text-align: center;
-    box-sizing: border-box; /* ボックスサイズの計算方法を変更 */
-    max-width: 100vw; /* 画面幅に合わせる */
-    overflow-x: hidden; /* 横方向のスクロールを防止 */
-    z-index: 999; /* z-indexを追加して重なり順を制御 */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 影を追加 */
-    border-top: 2px solid var(--secondary-color); /* 上部に境界線を追加 */
+    top: 0;
+    right: -100%; /* 初期状態では画面外の右側に配置 (幅100%で隠す) */
+    width: 70%; /* メニューの幅を調整 */
+    max-width: 300px; /* 最大幅を設定 */
+    height: 100vh;
+    background-color: var(--panel-color);
+    padding-top: 60px; /* ヘッダーの高さ分オフセット */
+    transition: right 0.3s ease-in-out;
+    z-index: 1000; /* ヘッダーより手前、ハンバーガーより奥 */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    overflow-y: auto; /* メニュー項目が多い場合にスクロール可能に */
   }
 
   nav ul.active {
-    display: block !important; /* !importantを追加して必ず表示されるようにする */
-    animation: fadeIn 0.3s ease; /* アニメーション効果を追加 */
+    right: 0; /* activeクラスが付いたら右端に表示 */
   }
-  
-  /* スマホサイズでのメニュー項目スタイル調整 */
+
   nav ul li {
     display: block;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li a {
-    display: block;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(126, 87, 194, 0.2);
-    font-size: 1.1rem;
-  }
-  
-  nav ul li:last-child a {
-    border-bottom: none;
-  }
-  
-  /* メニュー項目ホバー時の視覚効果 */
-  nav ul li a:hover {
-    background-color: rgba(0, 230, 118, 0.1);
-  }
-
-  /* チームメンバー */
-  .member {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-  }
-
-  .member-info {
-    padding-right: 0;
-    padding-bottom: 1rem;
-  }
-
-  .member-image {
-    width: 120px;
-    height: 120px;
-  }
-
-  /* ブログ */
-  .blog-container {
-    padding: 0 1rem;
-  }
-  
-  .blog-nav {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .sns-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .sns-button {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  /* ヘッダーとナビゲーション */
-  header h1 {
-    font-size: 1.5rem;
-    margin: 0.3rem 0;
-  }
-  
-  .hamburger {
-    display: block;
-    right: 15px;
-    z-index: 1001;
-  }
-
-  header {
-    padding: 0.5rem 0.8rem;
-    box-sizing: border-box;
-    position: fixed;
     width: 100%;
-  }
-
-  /* スマホ用ナビゲーションメニュースタイル */
-  nav ul {
-    display: none;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: rgba(20, 20, 30, 0.95);
-    padding: 20px 0;
     text-align: center;
-    box-sizing: border-box;
-    max-width: 100vw;
-    overflow-x: hidden;
-    z-index: 999;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-top: 2px solid var(--secondary-color);
+    margin: 0; /* マージンをリセット */
   }
 
-  nav ul.active {
-    display: block !important;
-    animation: fadeIn 0.3s ease;
-  }
-  
-  /* スマホサイズでのメニュー項目スタイル調整 */
-  nav ul li {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
-  
   nav ul li a {
+    padding: 1.2rem 1rem; /* パディングを調整 */
     display: block;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(126, 87, 194, 0.2);
-    font-size: 1.1rem;
-  }
-  
-  nav ul li:last-child a {
-    border-bottom: none;
-  }
-  
-  /* メニュー項目ホバー時の視覚効果 */
-  nav ul li a:hover {
-    background-color: rgba(0, 230, 118, 0.1);
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 区切り線 */
+    transition: background-color 0.2s ease;
   }
 
-  /* セクション見出し調整 */
-  section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+  nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* ホバー時の背景色 */
+    color: var(--secondary-color); /* ホバー時の文字色 */
   }
-  
+
+  /* ヘッダータイトルの調整 */
+  .header-title {
+    font-size: 1rem; /* スマホでは少し小さく */
+    margin-right: auto; /* ハンバーガーメニューとのスペースを確保 */
+    padding-left: 0.5rem; /* アイコンとのスペース調整 */
+  }
+
+  .header-icon {
+    height: 35px; /* スマホでは少し小さく */
+  }
+
+  /* 他のレスポンシブスタイル ... */
   section {
     padding: 1.5rem 1rem;
     margin: 3rem auto;
