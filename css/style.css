@@ -175,12 +175,12 @@ header {
 
 /* ヘッダーが最上部でない場合のスタイル */
 header:not(.at-top) {
-  background-color: rgba(126, 87, 194, 0.8); /* 半透明度を維持 (プライマリカラーベース) */
+  background-color: rgba(0, 0, 0, 0.1); /* より不透明な既存の色 */
 }
 
 /* ヘッダーが最上部の場合のスタイル */
 header.at-top {
-  background-color: transparent; /* 背景を透明に */
+  background-color: rgba(0, 0, 0, 1); /* より透明な既存の色 */
   box-shadow: none; /* 影を削除 */
 }
 
@@ -210,7 +210,7 @@ header.at-top {
 
 .header-title {
     font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
-    font-size: 1.2rem; /* 文字サイズを調整 */
+    font-size: 1.8rem; /* 文字サイズを調整 */
     font-weight: 700;
     color: var(--text-color); /* 文字色を調整 */
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
