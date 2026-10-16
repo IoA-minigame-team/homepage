@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary
+*.wasm binary
+*.data binary
+*.br binary
+*.unityweb binary
+public/game/** -text
