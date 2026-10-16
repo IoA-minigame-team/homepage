@@ -31,28 +31,6 @@ export type Game = {
 
 export const games: Game[] = [
   {
-    slug: "catan",
-    title: "これであなたもカタンマスター",
-    catch: "遊びながらカタンのルールを覚えよう！",
-    description: [
-      "ボードゲーム「カタン」のルールを、ムービーとチュートリアルで楽しく学べるゲームです。",
-      "資源の集め方から開拓、ほかのプレイヤーとの交渉まで、ステップごとに体験しながら覚えられます。",
-      "これを遊べば、初めてのカタンでも迷わない！",
-    ],
-    features: ["ルールをゼロから学べる", "ムービーでわかりやすく解説", "カタン初心者におすすめ"],
-    controls: [{ label: "基本操作", text: "マウスクリック（スマホではタップ）で進めます。" }],
-    thumbnail: "/images/game/catan/catan.webp",
-    screenshots: ["/images/game/catan/catan-1.webp", "/images/game/catan/catan-2.webp"],
-    themeColor: "#ff8a3d",
-    platforms: ["pc", "mobile"],
-    platformNote: "スマホ対応は一応してありますが、正常な挙動は保証できません",
-    devStart: "2025年12月",
-    developers: ["MiniVerse"],
-    tech: ["Unity"],
-    play: { type: "embed", src: "/game/catan/index.html", aspect: "16 / 9" },
-    isNew: true,
-  },
-  {
     slug: "kagagosai-puzzle",
     title: "加賀五彩パズル",
     catch: "九谷焼の絵付けをパズルで体験！",
@@ -163,6 +141,28 @@ export const games: Game[] = [
     developers: ["髙橋荘悟"],
     tech: ["Unity", "UnityAssets_SPAM"],
     play: { type: "embed", src: "/game/speed-slash/index.html" },
+  },
+  {
+    slug: "catan",
+    title: "これであなたもカタンマスター",
+    catch: "遊びながらカタンのルールを覚えよう！",
+    description: [
+      "ボードゲーム「カタン」のルールを、ムービーとチュートリアルで楽しく学べるゲームです。",
+      "資源の集め方から開拓、ほかのプレイヤーとの交渉まで、ステップごとに体験しながら覚えられます。",
+      "これを遊べば、初めてのカタンでも迷わない！",
+    ],
+    features: ["ルールをゼロから学べる", "ムービーでわかりやすく解説", "カタン初心者におすすめ"],
+    controls: [{ label: "基本操作", text: "マウスクリック（スマホではタップ）で進めます。" }],
+    thumbnail: "/images/game/catan/catan.webp",
+    screenshots: ["/images/game/catan/catan-1.webp", "/images/game/catan/catan-2.webp"],
+    themeColor: "#ff8a3d",
+    platforms: ["pc", "mobile"],
+    platformNote: "スマホ対応は一応してありますが、正常な挙動は保証できません",
+    devStart: "2025年12月",
+    developers: ["MiniVerse"],
+    tech: ["Unity"],
+    play: { type: "embed", src: "/game/catan/index.html", aspect: "16 / 9" },
+    // isNew: true,
   },
 ];
 
