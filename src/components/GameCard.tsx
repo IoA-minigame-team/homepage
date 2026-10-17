@@ -29,7 +29,7 @@ export function GameCard({ game, index }: { game: Game; index: number }) {
             className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
           <span className="absolute right-2 bottom-2 rounded-full border-[3px] border-ink bg-pop-yellow px-3 py-1 text-sm font-bold opacity-0 shadow-pop-sm transition-all group-hover:opacity-100">
-            ▶ あそぶ
+            {game.play.type === "onsite" ? "▶ くわしく" : "▶ あそぶ"}
           </span>
         </div>
         <div className="flex flex-1 flex-col gap-2 p-4">

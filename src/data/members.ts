@@ -35,6 +35,7 @@ export const members: Member[] = [
       { game: "speed-slash", note: "反射神経を競うアクションゲーム" },
       { game: "kaze-hichau", note: "バンサバライク避けゲー" },
       { game: "kagagosai-puzzle", note: "九谷焼の絵付けパズル" },
+      { game: "sorosoro-kaerou", note: "スマホを振り返らせるウォーキングホラー" },
     ],
     links: [
       { type: "x", url: "https://x.com/kapi_0622" },

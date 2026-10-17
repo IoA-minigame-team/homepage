@@ -1,8 +1,14 @@
 import clsx from "clsx";
+import { FaAndroid } from "react-icons/fa6";
 import { HiComputerDesktop, HiDevicePhoneMobile } from "react-icons/hi2";
 import type { Platform } from "@/data/games";
 
-const LABEL: Record<Platform, string> = { pc: "PC", mobile: "スマホ" };
+const LABEL: Record<Platform, string> = { pc: "PC", mobile: "スマホ", android: "Android" };
+const ICON: Record<Platform, React.ReactNode> = {
+  pc: <HiComputerDesktop />,
+  mobile: <HiDevicePhoneMobile />,
+  android: <FaAndroid />,
+};
 
 export function PlatformBadges({ platforms, className }: { platforms: Platform[]; className?: string }) {
   return (
@@ -12,7 +18,7 @@ export function PlatformBadges({ platforms, className }: { platforms: Platform[]
           key={p}
           className="inline-flex items-center gap-1 rounded-full border-2 border-ink bg-white px-2.5 py-0.5 text-xs font-bold"
         >
-          {p === "pc" ? <HiComputerDesktop /> : <HiDevicePhoneMobile />}
+          {ICON[p]}
           {LABEL[p]}
         </li>
       ))}
