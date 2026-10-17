@@ -1,10 +1,12 @@
-export type Platform = "pc" | "mobile";
+export type Platform = "pc" | "mobile" | "android";
 
 export type PlayTarget =
   /** public/game/<slug>/index.html をサイト内のプレイ画面で遊ぶ */
   | { type: "embed"; src: string; aspect?: string }
   /** unityroom などの外部サイトへリンクする */
-  | { type: "external"; url: string; label: string };
+  | { type: "external"; url: string; label: string }
+  /** 展示会場に置いた端末でだけ遊べる（Web では遊べない） */
+  | { type: "onsite"; device: string };
 
 export type Game = {
   slug: string;
@@ -22,7 +24,8 @@ export type Game = {
   platforms: Platform[];
   /** 対応状況の補足（スマホ対応が怪しい等） */
   platformNote?: string;
-  devStart: string;
+  /** わからなければ省略（開発情報に表示しない） */
+  devStart?: string;
   developers: string[];
   tech: string[];
   play: PlayTarget;
@@ -30,6 +33,43 @@ export type Game = {
 };
 
 export const games: Game[] = [
+  {
+    slug: "sorosoro-kaerou",
+    title: "そろそろ、帰ろう",
+    catch: "夜道の帰り道。背後の音に、振り返るべきか。",
+    description: [
+      "夜道を歩いて家を目指す、スマホのジャイロセンサーとライトを使ったウォーキングホラーゲームです。",
+      "帰り道、ふいに背後から音が聞こえてくる。ただの環境音なら気にせず歩き続け、異常な音なら実際にスマホを背後へ向けてフラッシュを焚き、撃退しよう。",
+      "振り返ればライトが点いて音がはっきり聞こえるけれど、点けている間は電池がどんどん減っていく。見逃せば命取り、でも振り返れば必ず電池を失う。迷うほどに怖くなる、判断のホラーです。",
+      "ライトもフラッシュも、スマホ本体が実際に光ります。暗い部屋で遊ぶと、恐怖が画面の外まで広がります。",
+    ],
+    features: ["スマホを本当に振り返らせる体感操作", "本物のライト＆フラッシュで撃退", "暗い部屋だと怖さ倍増"],
+    controls: [
+      { label: "歩く", text: "正面を向いている間だけ、家に近づいていきます。" },
+      {
+        label: "振り返る",
+        text: "スマホを実際に背後へ向けると振り返ります。ライトが点いて背後の音がはっきり聞こえますが、点灯中は電池が減り続けます。",
+      },
+      {
+        label: "撮影",
+        text: "画面の「写真」ボタンでフラッシュを焚き、異常なものを撃退します。ただの環境音に向かって撮影すると、電池を大きく失います。",
+      },
+      {
+        label: "ゲームオーバー",
+        text: "異常な音を無視したり、振り返っても撮影しなかったりするとゲームオーバー。制限時間内に判断できなかったときも同じです。",
+      },
+      { label: "目的", text: "背後の気配を見極めながら、無事に家までたどり着こう。" },
+    ],
+    thumbnail: "/images/game/sorosoro-kaerou/sorosoro-kaerou.webp",
+    screenshots: ["/images/game/sorosoro-kaerou/sorosoro-kaerou-1.webp", "/images/game/sorosoro-kaerou/sorosoro-kaerou-2.webp"],
+    themeColor: "#6c5ce7",
+    platforms: ["android"],
+    developers: ["髙橋荘悟"],
+    tech: ["Unity"],
+    // 展示用に用意した Android 端末でだけ遊べる。Web 公開したら embed / external に書き換える
+    play: { type: "onsite", device: "Android 端末" },
+    isNew: true,
+  },
   {
     slug: "kagagosai-puzzle",
     title: "加賀五彩パズル",
@@ -96,7 +136,9 @@ export const games: Game[] = [
     devStart: "2025年8月",
     developers: ["髙橋荘悟", "池本理柚"],
     tech: ["Unity"],
-    play: { type: "embed", src: "/game/kaze-hichau/index.html" },
+    // ランキング機能を使うため unityroom で遊んでもらう。サイト内で遊ばせる場合は
+    // { type: "embed", src: "/game/kaze-hichau/index.html" } に戻す（ビルドは public/game/kaze-hichau/ に残してある）
+    play: { type: "external", url: "https://unityroom.com/games/kaze-hichau", label: "unityroom" },
   },
   {
     slug: "kotodama",

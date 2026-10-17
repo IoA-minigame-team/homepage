@@ -38,9 +38,10 @@ npm run lint
 ```ts
 play: { type: "embed", src: "/game/<slug>/index.html" },                       // サイト内で遊ぶ
 play: { type: "external", url: "https://unityroom.com/games/xxx", label: "unityroom" }, // 外部サイトへ
+play: { type: "onsite", device: "Android 端末" },                               // 展示会場の端末でだけ遊べる（リンクなし）
 ```
 
-`play` を書き換えるだけで「サイト内で遊ぶ」⇔「unityroom などへリンク」を切り替えられます。
+`play` を書き換えるだけで「サイト内で遊ぶ」⇔「unityroom などへリンク」を切り替えられます。`onsite` は Web で遊べないゲーム用で、「会場の端末で遊んでね」という案内と、展示会場以外から見ている人向けの注意書き（展示モードでは非表示）を出します。対応デバイスの表示には `platforms: ["android"]` も使えます。
 
 ### Unity ビルドについての注意
 

@@ -142,12 +142,14 @@ export default async function GamePage({ params }: PageProps<"/games/[slug]">) {
               ["開発開始", game.devStart],
               ["開発者", game.developers.join("・")],
               ["使用技術", game.tech.join(" / ")],
-            ].map(([k, v]) => (
-              <div key={k} className="rounded-2xl border-[3px] border-ink bg-cream p-3">
-                <dt className="text-sm opacity-60">{k}</dt>
-                <dd>{v}</dd>
-              </div>
-            ))}
+            ]
+              .filter(([, v]) => v)
+              .map(([k, v]) => (
+                <div key={k} className="rounded-2xl border-[3px] border-ink bg-cream p-3">
+                  <dt className="text-sm opacity-60">{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
           </dl>
         </Panel>
 
@@ -158,7 +160,7 @@ export default async function GamePage({ params }: PageProps<"/games/[slug]">) {
         </div>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <PlayButton game={game} />
+          <PlayButton game={game} compact />
           <Link href="/#games" className={popButton({ size: "lg", className: "bg-white" })}>
             <HiArrowLeft /> ほかのゲームを見る
           </Link>
